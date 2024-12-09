@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct CapturesList: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+  var body: some View {
+    List {
+      Text("Some Coffee Text!")
+      Text("Some more text")
     }
+  }
 }
 
 #Preview {
-    CapturesList()
+  CapturesList()
 }

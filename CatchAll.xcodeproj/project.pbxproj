@@ -6,6 +6,17 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		53079F872D05FE7200AFFF5D /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 53079F862D05FE7200AFFF5D /* Auth */; };
+		53079F892D05FE7200AFFF5D /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = 53079F882D05FE7200AFFF5D /* Functions */; };
+		53079F8B2D05FE7200AFFF5D /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 53079F8A2D05FE7200AFFF5D /* PostgREST */; };
+		53079F8D2D05FE7200AFFF5D /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 53079F8C2D05FE7200AFFF5D /* Realtime */; };
+		53079F8F2D05FE7200AFFF5D /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 53079F8E2D05FE7200AFFF5D /* Storage */; };
+		53079F912D05FE7200AFFF5D /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 53079F902D05FE7200AFFF5D /* Supabase */; };
+		53079FF02D06395800AFFF5D /* SwiftDotenv in Frameworks */ = {isa = PBXBuildFile; productRef = 53079FEF2D06395800AFFF5D /* SwiftDotenv */; };
+		5359A9462D03E09C0043A282 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 5359A9452D03E09C0043A282 /* Inject */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		530363202CCC8B8A009A0847 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +63,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53079F8B2D05FE7200AFFF5D /* PostgREST in Frameworks */,
+				53079F8F2D05FE7200AFFF5D /* Storage in Frameworks */,
+				53079F912D05FE7200AFFF5D /* Supabase in Frameworks */,
+				53079FF02D06395800AFFF5D /* SwiftDotenv in Frameworks */,
+				5359A9462D03E09C0043A282 /* Inject in Frameworks */,
+				53079F872D05FE7200AFFF5D /* Auth in Frameworks */,
+				53079F8D2D05FE7200AFFF5D /* Realtime in Frameworks */,
+				53079F892D05FE7200AFFF5D /* Functions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +131,14 @@
 			);
 			name = CatchAll;
 			packageProductDependencies = (
+				5359A9452D03E09C0043A282 /* Inject */,
+				53079F862D05FE7200AFFF5D /* Auth */,
+				53079F882D05FE7200AFFF5D /* Functions */,
+				53079F8A2D05FE7200AFFF5D /* PostgREST */,
+				53079F8C2D05FE7200AFFF5D /* Realtime */,
+				53079F8E2D05FE7200AFFF5D /* Storage */,
+				53079F902D05FE7200AFFF5D /* Supabase */,
+				53079FEF2D06395800AFFF5D /* SwiftDotenv */,
 			);
 			productName = CatchAll;
 			productReference = 5303630E2CCC8B89009A0847 /* CatchAll.app */;
@@ -171,7 +198,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					5303630D2CCC8B89009A0847 = {
 						CreatedOnToolsVersion = 16.0;
@@ -195,6 +222,11 @@
 			);
 			mainGroup = 530363052CCC8B89009A0847;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5312BC662D03DD3A007F9737 /* XCRemoteSwiftPackageReference "Inject" */,
+				53079F852D05FE7200AFFF5D /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				53079FEE2D06395800AFFF5D /* XCRemoteSwiftPackageReference "swift-dotenv" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5303630F2CCC8B89009A0847 /* Products */;
 			projectDirPath = "";
@@ -303,6 +335,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -364,6 +397,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -391,6 +425,7 @@
 				CODE_SIGN_ENTITLEMENTS = CatchAll/CatchAll.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"CatchAll/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -409,6 +444,10 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.0;
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-Xlinker",
+					"-interposable",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cjpy4.CatchAll;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -428,6 +467,7 @@
 				CODE_SIGN_ENTITLEMENTS = CatchAll/CatchAll.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"CatchAll/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -463,10 +503,15 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.0;
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-Xlinker",
+					"-interposable",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cjpy4.CatchAllTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -485,6 +530,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
@@ -506,10 +552,15 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.0;
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-Xlinker",
+					"-interposable",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cjpy4.CatchAllUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -527,6 +578,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
@@ -583,6 +635,76 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		53079F852D05FE7200AFFF5D /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase-community/supabase-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+		53079FEE2D06395800AFFF5D /* XCRemoteSwiftPackageReference "swift-dotenv" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/thebarndog/swift-dotenv.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.0;
+			};
+		};
+		5312BC662D03DD3A007F9737 /* XCRemoteSwiftPackageReference "Inject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		53079F862D05FE7200AFFF5D /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53079F852D05FE7200AFFF5D /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Auth;
+		};
+		53079F882D05FE7200AFFF5D /* Functions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53079F852D05FE7200AFFF5D /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Functions;
+		};
+		53079F8A2D05FE7200AFFF5D /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53079F852D05FE7200AFFF5D /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
+		};
+		53079F8C2D05FE7200AFFF5D /* Realtime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53079F852D05FE7200AFFF5D /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Realtime;
+		};
+		53079F8E2D05FE7200AFFF5D /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53079F852D05FE7200AFFF5D /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Storage;
+		};
+		53079F902D05FE7200AFFF5D /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53079F852D05FE7200AFFF5D /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+		53079FEF2D06395800AFFF5D /* SwiftDotenv */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53079FEE2D06395800AFFF5D /* XCRemoteSwiftPackageReference "swift-dotenv" */;
+			productName = SwiftDotenv;
+		};
+		5359A9452D03E09C0043A282 /* Inject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5312BC662D03DD3A007F9737 /* XCRemoteSwiftPackageReference "Inject" */;
+			productName = Inject;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 530363062CCC8B89009A0847 /* Project object */;
 }

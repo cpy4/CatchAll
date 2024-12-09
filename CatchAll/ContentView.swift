@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+  @ObserveInjection var inject
+  var body: some View {
+
+    VStack {
+      CapturesList()
+      CatchAllButton()
     }
+    .padding()
+    .enableInjection()
+  }
 }
 
 #Preview {
-    ContentView()
+  ContentView()
 }
