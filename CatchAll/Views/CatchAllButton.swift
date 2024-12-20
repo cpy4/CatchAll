@@ -4,80 +4,131 @@
 //
 //  Created by CJ Pye on 10/26/24.
 //
-
+import Foundation
 import SwiftUI
 
-let supabase = SupabaseManager.shared.client
-
-struct Capture: Decodable {
-  let id: Int
-  let content: String
+enum CaptureType {
+  case notset
+  case text
+  case photo
+  case file
+  case aichat
 }
 
 struct CatchAllButton: View {
-  @State private var visible = false
-  @State private var captures: [Capture] = []
+  @State private var mainButtonVisible = true
+  @State private var isButtonVisible = false
+  @Binding var captureType: CaptureType
+  @State private var importing = false
+  @State private var fileName: String?
+  @State private var selectedFile: Data?
 
   var body: some View {
     ZStack {
-      Button(action: {
-        withAnimation { visible.toggle() }
-        print(captures)
-      }) {
-        Image(systemName: "plus.app.fill")  // Replace with desired SF Symbol
-          .resizable()  // Allows resizing of the icon
-          .aspectRatio(contentMode: .fit)
-          .frame(width: 70, height: 70)
-          .foregroundColor(.teal)
+      if mainButtonVisible {
+        createButton(systemName: "plus.circle.fill", color: .teal, size: 70) {
+          withAnimation { isButtonVisible.toggle() }
+        }
       }
-      if visible {
-        Button(action: {}) {
-          Image(systemName: "camera.circle.fill")  // Replace with desired SF Symbol
-            .resizable()  // Allows resizing of the icon
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 60, height: 60)
-            .foregroundColor(.black)
+      if isButtonVisible {
+        createButton(systemName: "camera.circle.fill", color: .red, size: 60) {
+          if captureType == .photo { captureType = .notset } else { captureType = .photo }
         }
         .offset(x: 65, y: -45)
-        .transition(.move(edge: .bottom))
+        .transition(.asymmetric(insertion: .offset(x: -65, y: 45), removal: .offset(x: -65, y: 45)))
+        .animation(.easeInOut(duration: 0.05), value: isButtonVisible)
 
-        Button(action: {}) {
-          Image(systemName: "document.circle.fill")  // Replace with desired SF Symbol
-            .resizable()  // Allows resizing of the icon
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 60, height: 60)
-            .foregroundColor(.blue)
+        createButton(systemName: "document.circle.fill", color: .blue, size: 60) {
+          if captureType == .file {
+            captureType = .notset
+          } else {
+            captureType = .file
+            importing = true
+          }
         }
-        .offset(x: 0, y: -70)
-        .transition(.move(edge: .bottom))
+        .fileImporter(
+          isPresented: $importing,
+          allowedContentTypes: [.plainText, .pdf, .image]
+        ) { result in
+          switch result {
+          case .success(let file):
+            if file.startAccessingSecurityScopedResource() {
+              do {
+                //let path = file.absoluteString
+                fileName = file.lastPathComponent
+                print("File name: \(fileName)")
+                selectedFile = try Data(contentsOf: file)
+              } catch {
+                print("Error reading file data: \(error)")
+              }
+            }
+            Task {
+                await insertFileCapture(file: selectedFile!, name: fileName!)
+            }
+          case .failure(let error):
+            print(error.localizedDescription)
+          }
+        }
+        .offset(x: 0, y: -75)
+        .transition(.asymmetric(insertion: .offset(x: 0, y: 70), removal: .offset(x: 0, y: 70)))
+        .animation(.easeInOut(duration: 0.05), value: isButtonVisible)
 
-        Button(action: {}) {
-          Image(systemName: "bubble.circle.fill")  // Replace with desired SF Symbol
-            .resizable()  // Allows resizing of the icon
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 60, height: 60)
-            .foregroundColor(.green)
+        createButton(systemName: "bubble.circle.fill", color: .green, size: 60) {
+          if captureType == .text {
+            captureType = .notset
+          } else {
+            captureType = .text
+            mainButtonVisible = false
+            isButtonVisible = false
+          }
         }
         .offset(x: -65, y: -45)
-        .transition(.move(edge: .bottom))
+        .transition(.asymmetric(insertion: .offset(x: 65, y: 45), removal: .offset(x: 65, y: 45)))
+        //.animation(.easeInOut(duration: 1.05), value: isButtonVisible)
+      }
+      if !mainButtonVisible {
+        createButton(systemName: "x.circle.fill", color: .red, size: 20) {
+          withAnimation {
+            mainButtonVisible = true
+            captureType = .notset
+          }
+        }
       }
     }
     .padding()
-    .task {
-      do {
-        captures =
-          try await supabase
-          .from("vtext_captures")
-          .select()
-          .execute()
-          .value
-      } catch {
-        print("Error fetching captures: \(error)")
-      }
-    }
+  }
+}
+
+private func createButton(
+  systemName: String, color: Color, size: CGFloat, action: @escaping () -> Void = {}
+) -> some View {
+  Button(action: action) {
+    Image(systemName: systemName)
+      .resizable()
+      .aspectRatio(contentMode: .fit)
+      .frame(width: size, height: size)
+      .foregroundColor(color)
+  }
+}
+
+private func insertFileCapture(file: Data, name: String) async {
+  print("Uploading file to path: \(name)")
+  do {
+    try await supabase.storage
+      .from("files")
+      .upload(
+        "useruploads/\(name)",
+        data: file
+      )
+  } catch {
+    print("Failed to insert file capture: \(error)")
   }
 }
 
 #Preview {
-  CatchAllButton()
+  // Create a state variable to hold the capture type
+  @Previewable @State var previewCaptureType: CaptureType = .notset
+
+  // Return the CatchAllButton with the binding
+  return CatchAllButton(captureType: $previewCaptureType)
 }
