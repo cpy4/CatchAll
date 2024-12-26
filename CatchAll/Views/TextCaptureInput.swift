@@ -25,7 +25,7 @@ struct TextCaptureInput: View {
             .stroke(Color.gray, lineWidth: 1))
       Button(action: {
         Task {
-          await insertTextCapture()
+            await insertTextCapture(textInput: textInput)
         }
       }) {
         Image(systemName: "arrow.up")
@@ -34,22 +34,6 @@ struct TextCaptureInput: View {
           .frame(width: 30, height: 25)
           .foregroundColor(.red)
       }
-    }
-  }
-
-  private func insertTextCapture() async {
-    guard !textInput.isEmpty else {
-      print("Input Field Can't be empty!")
-      return
-    }
-    let textCapture = Capture(id: nil, content: textInput)
-    do {
-      try await supabase
-        .from("vtext_captures")
-        .insert(textCapture)
-        .execute()
-    } catch {
-      print("Failed to insert text capture: \(error)")
     }
   }
 }

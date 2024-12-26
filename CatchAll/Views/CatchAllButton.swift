@@ -22,6 +22,10 @@ struct CatchAllButton: View {
   @State private var importing = false
   @State private var fileName: String?
   @State private var selectedFile: Data?
+  @State private var showImagePicker = false
+  @State private var image: UIImage?
+  @State private var imageData: Data?
+  @State private var imageName: String?
 
   var body: some View {
     ZStack {
@@ -33,10 +37,24 @@ struct CatchAllButton: View {
       if isButtonVisible {
         createButton(systemName: "camera.circle.fill", color: .red, size: 60) {
           if captureType == .photo { captureType = .notset } else { captureType = .photo }
+          showImagePicker = true
         }
         .offset(x: 65, y: -45)
         .transition(.asymmetric(insertion: .offset(x: -65, y: 45), removal: .offset(x: -65, y: 45)))
-        .animation(.easeInOut(duration: 0.05), value: isButtonVisible)
+        .animation(.easeInOut(duration: 0.3), value: isButtonVisible)
+        .sheet(isPresented: $showImagePicker) {
+            ImagePicker(image: $image)
+        }
+        .task {
+            do {
+              //let path = file.absoluteString
+             imageName = "photo"
+                imageData = image!.jpegData(compressionQuality: 1.0)
+                await insertFileCapture(file: imageData!, name: imageName!)
+            } catch {
+              print("Error reading file data: \(error)")
+            }
+          }
 
         createButton(systemName: "document.circle.fill", color: .blue, size: 60) {
           if captureType == .file {
@@ -56,7 +74,6 @@ struct CatchAllButton: View {
               do {
                 //let path = file.absoluteString
                 fileName = file.lastPathComponent
-                print("File name: \(fileName)")
                 selectedFile = try Data(contentsOf: file)
               } catch {
                 print("Error reading file data: \(error)")
@@ -108,20 +125,6 @@ private func createButton(
       .aspectRatio(contentMode: .fit)
       .frame(width: size, height: size)
       .foregroundColor(color)
-  }
-}
-
-private func insertFileCapture(file: Data, name: String) async {
-  print("Uploading file to path: \(name)")
-  do {
-    try await supabase.storage
-      .from("files")
-      .upload(
-        "useruploads/\(name)",
-        data: file
-      )
-  } catch {
-    print("Failed to insert file capture: \(error)")
   }
 }
 
