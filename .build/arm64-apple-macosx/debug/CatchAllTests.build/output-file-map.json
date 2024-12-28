@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/cjpye/Code/Projects/CatchAll/.build/arm64-apple-macosx/debug/CatchAllTests.build/master.swiftdeps"
+  },
+  "/Users/cjpye/Code/Projects/CatchAll/CatchAllTests/CatchAllTests.swift": {
+    "dependencies": "/Users/cjpye/Code/Projects/CatchAll/.build/arm64-apple-macosx/debug/CatchAllTests.build/CatchAllTests.d",
+    "object": "/Users/cjpye/Code/Projects/CatchAll/.build/arm64-apple-macosx/debug/CatchAllTests.build/CatchAllTests.swift.o",
+    "swiftmodule": "/Users/cjpye/Code/Projects/CatchAll/.build/arm64-apple-macosx/debug/CatchAllTests.build/CatchAllTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/cjpye/Code/Projects/CatchAll/.build/arm64-apple-macosx/debug/CatchAllTests.build/CatchAllTests.swiftdeps"
+  }
+}

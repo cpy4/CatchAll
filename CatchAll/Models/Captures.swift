@@ -1,32 +1,57 @@
 import Foundation
-
+import SwiftUI
 
 struct Capture: Decodable, Identifiable, Encodable {
-  let id: Int?
-  let content: String
+    let id: Int?
+    let type: CaptureType
+    let textContent: String?
+    let fileData: Data?
+    let fileName: String?
+    
+    init(id: Int? = nil,
+         type: CaptureType = .notset,
+         textContent: String? = nil,
+         fileData: Data? = nil,
+         fileName: String? = nil) {
+        self.id = id
+        self.type = type
+        self.textContent = textContent
+        self.fileData = fileData
+        self.fileName = fileName
+    }
+}
+
+enum CaptureType: Decodable, Encodable {
+  case notset
+  case text
+  case photo
+  case file
+  case aichat
 }
 
 func getCapturesFeed() async -> [Capture] {
   var captures: [Capture]
   do {
-    captures =
-      try await supabase
-      .from("vtext_captures")
-      .select()
-      .execute()
-      .value
+//    captures =
+//      try await supabase
+//      .from("vtext_captures")
+//      .select()
+//      .execute()
+//      .value
+      captures = [Capture(textContent: "Capture 1"), Capture(textContent: "Capture 2"), Capture(textContent: "Capture 3")]
     return captures
   } catch {
     print("Error fetching captures: \(error)")
     return []
   }
 }
+
 func insertTextCapture(textInput: String) async {
     guard !textInput.isEmpty else {
       print("Input Field Can't be empty!")
       return
     }
-    let textCapture = Capture(id: nil, content: textInput)
+    let textCapture = Capture(textContent: textInput)
     do {
       try await supabase
         .from("vtext_captures")
@@ -36,6 +61,7 @@ func insertTextCapture(textInput: String) async {
       print("Failed to insert text capture: \(error)")
     }
   }
+
 func insertFileCapture(file: Data, name: String) async {
   print("Uploading file to path: \(name)")
   do {

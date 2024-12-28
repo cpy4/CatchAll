@@ -1,0 +1,4 @@
+module HTTPTypes {
+    header "/Users/cjpye/Code/Projects/CatchAll/.build/arm64-apple-macosx/debug/HTTPTypes.build/HTTPTypes-Swift.h"
+    requires objc
+}

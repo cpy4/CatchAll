@@ -14,11 +14,11 @@ struct CapturesList: View {
   var body: some View {
     List {
       ForEach(captures) { capture in
-        Text(capture.content)
+        Text(capture.textContent!)
       }
     }
     .task {
-      captures = await getCapturesFeed()
+        captures = await getCapturesFeed()
       print(captures)
     }
   }

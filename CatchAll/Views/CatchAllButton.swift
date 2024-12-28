@@ -7,13 +7,6 @@
 import Foundation
 import SwiftUI
 
-enum CaptureType {
-  case notset
-  case text
-  case photo
-  case file
-  case aichat
-}
 
 struct CatchAllButton: View {
   @State private var mainButtonVisible = true
@@ -51,8 +44,6 @@ struct CatchAllButton: View {
              imageName = "photo"
                 imageData = image!.jpegData(compressionQuality: 1.0)
                 await insertFileCapture(file: imageData!, name: imageName!)
-            } catch {
-              print("Error reading file data: \(error)")
             }
           }
 

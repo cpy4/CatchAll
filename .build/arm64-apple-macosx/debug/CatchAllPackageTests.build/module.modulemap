@@ -1,0 +1,4 @@
+module CatchAllPackageTests {
+    header "/Users/cjpye/Code/Projects/CatchAll/.build/arm64-apple-macosx/debug/CatchAllPackageTests.build/CatchAllPackageTests-Swift.h"
+    requires objc
+}
