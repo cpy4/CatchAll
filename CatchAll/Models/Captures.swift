@@ -29,17 +29,26 @@ enum CaptureType: Decodable, Encodable {
   case aichat
 }
 
+extension Capture {
+    static let sampleData: [Capture] =
+    [
+        Capture(id: 1, textContent: "Design stuff this is some test text lol smiley face"),
+        Capture(id: 2, textContent: "App Dev"),
+        Capture(id: 3, textContent: "Web Dev")
+    ]
+}
+
 func getCapturesFeed() async -> [Capture] {
   var captures: [Capture]
   do {
-//    captures =
-//      try await supabase
-//      .from("vtext_captures")
-//      .select()
-//      .execute()
-//      .value
-      captures = [Capture(textContent: "Capture 1"), Capture(textContent: "Capture 2"), Capture(textContent: "Capture 3")]
-    return captures
+    captures =
+      try await supabase
+      .from("vtext_captures")
+      .select()
+      .execute()
+      .value
+   // return captures
+      return Capture.sampleData
   } catch {
     print("Error fetching captures: \(error)")
     return []

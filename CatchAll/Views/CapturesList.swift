@@ -12,13 +12,12 @@ struct CapturesList: View {
   @State private var captures: [Capture] = []
 
   var body: some View {
-    List {
-      ForEach(captures) { capture in
-        Text(capture.textContent!)
+      List(captures) {
+        capture in
+           CaptureCard(capture: capture)
       }
-    }
     .task {
-        captures = await getCapturesFeed()
+      captures = await getCapturesFeed()
       print(captures)
     }
   }

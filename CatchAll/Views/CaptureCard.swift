@@ -8,26 +8,10 @@
 import SwiftUI
 
 struct CaptureCard: View {
-    var message: String
-    var isCurrentUser: Bool
+    let capture: Capture
 
     var body: some View {
-        HStack {
-            if isCurrentUser {
-                Spacer()
-            }
-            Text(message)
-                .padding(10)
-                .background(isCurrentUser ? Color.blue : Color.gray.opacity(0.2))
-                .foregroundColor(isCurrentUser ? Color.white : Color.black)
-                .cornerRadius(10)
-                .padding(isCurrentUser ? .leading : .trailing, 50)
-            if !isCurrentUser {
-                Spacer()
-            }
-        }
-        .padding(.horizontal)
-        .padding(.vertical, 5)
+        createCard(capture: capture)
     }
 }
 
@@ -35,13 +19,22 @@ private func createCard(
     capture: Capture
 ) -> some View {
     ZStack {
-      //  capture.textContent
+        Text(String(capture.textContent!))
     }
+    .padding(.horizontal, 20)
+    .padding(.vertical, 20)
+    .background(Color.blue)
+    .foregroundColor(Color.black)
+    .cornerRadius(10)
+    //.frame(maxWidth: .infinity, alignment: .leading)
+    //.fixedSize(horizontal: false, vertical: true)
 }
 
 #Preview {
+    var capture = Capture.sampleData[0]
+    var capture2 = Capture.sampleData[1]
     VStack {
-        CaptureCard(message: "Hello, how are you?", isCurrentUser: false)
-        CaptureCard(message: "I'm good, thanks! How about you?", isCurrentUser: true)
+        CaptureCard(capture: capture)
+        CaptureCard(capture: capture2)
     }
 }
