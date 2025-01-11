@@ -47,8 +47,8 @@ func getCapturesFeed() async -> [Capture] {
       .select()
       .execute()
       .value
-   // return captures
-      return Capture.sampleData
+   return captures
+      //return Capture.sampleData
   } catch {
     print("Error fetching captures: \(error)")
     return []
